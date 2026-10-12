@@ -1,0 +1,5 @@
+# Thermal-Aware CPU Workload Optimization Framework (DAA Assignment 2)
+# The core framework and test suites are zero-dependency standard library Python (>=3.8).
+# Optional visualization libraries for graphical plot exports:
+matplotlib>=3.5.0
+numpy>=1.20.0
