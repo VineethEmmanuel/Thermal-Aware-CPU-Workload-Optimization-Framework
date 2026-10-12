@@ -4,8 +4,9 @@ Fibonacci Heap Data Structure for Dynamic Job Priority Management.
 A Fibonacci Heap is a collection of min-heap-ordered trees utilizing lazy consolidation
 and cascading cuts to achieve state-of-the-art amortized time bounds:
 
-Asymptotic Complexity:
------------------------
+Asymptotic Complexity & LeetCode Pattern Mapping:
+--------------------------------------------------
+- LeetCode Pattern: Amortized Priority Queue / Advanced Dijkstra Priority (e.g., LeetCode 743: Network Delay Time, LeetCode 23)
 - Find-Min:      O(1) actual and amortized
 - Insert:        O(1) actual and amortized
 - Union (Merge): O(1) actual and amortized

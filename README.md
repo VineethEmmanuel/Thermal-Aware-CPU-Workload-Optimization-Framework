@@ -2,7 +2,7 @@
 ### Design and Analysis of Algorithms (DAA) — Assignment 2
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://img.shields.io/badge/tests-36%2F36%20passed-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-43%2F43%20passed-brightgreen.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-green.svg)]()
 
 ---
@@ -116,13 +116,33 @@ This project implements a complete, modular, and mathematically rigorous simulat
 
 ---
 
-## 3. Modular Architecture
+## 3. Algorithmic Core & LeetCode Mapping
+
+Each core algorithmic engine backing our DAA optimization framework maps directly to canonical LeetCode problem patterns and complexity classes:
+
+| Framework Module | Dedicated LeetCode Implementation | Equivalent LeetCode Pattern | Time Complexity | Space Complexity | DAA Algorithmic Rationale |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| **Indivisible Job Admission** | `leetcode/knapsack_solver.py`<br>(`knapsack_01_tabulation`, `knapsack_01_space_optimized`, `can_partition_subset_sum`) | **LeetCode 416**: Partition Equal Subset Sum<br>**LeetCode 474**: Ones and Zeroes<br>**LeetCode 494**: Target Sum | $\mathcal{O}(n W)$ (Pseudo-polynomial) | $\mathcal{O}(nW)$ (2D table)<br>$\mathcal{O}(W)$ (1D rolling array) | Bounded capacity knapsack packing without greedy-choice property; requires dynamic programming state space transitions. |
+| **Divisible Resource Allocation** | `leetcode/knapsack_solver.py`<br>(`fractional_knapsack`) | **Continuous LP Relaxation** / Greedy Unit Density (e.g. LeetCode 1710: Maximum Units on a Truck) | $\mathcal{O}(n \log n)$ (Sort)<br>$\mathcal{O}(n)$ (QuickSelect) | $\mathcal{O}(n)$ | Integrality relaxation allows greedy saturation by value density $v_i / w_i$; eliminates NP-hardness. |
+| **Computation Reduction** | `leetcode/matrix_chain.py`<br>(`matrix_chain_multiplication`, `burst_balloons`) | **LeetCode 312**: Burst Balloons<br>**LeetCode 1000**: Min Cost to Merge Stones<br>**LeetCode 1547**: Min Cost to Cut a Stick | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^2)$ | Interval/Range DP: evaluates subchains of length $l \in [2, n]$ finding optimal split point $k \in [i, j-1]$ to minimize scalar ops. |
+| **Dynamic Job Priority** | `leetcode/priority_queues.py`<br>(`IndexedMinHeap`, `merge_k_sorted_lists`) | **LeetCode 23**: Merge k Sorted Lists<br>**LeetCode 218**: The Skyline Problem<br>**LeetCode 295**: Find Median from Data Stream | **Binomial**: $\mathcal{O}(\log n)$<br>**Fibonacci**: $\mathcal{O}(1)$ amortized decrease-key | $\mathcal{O}(n)$ | Dynamic task re-prioritization on thermal heating surges; indexed mapping ensures $\mathcal{O}(\log n)$ / $\mathcal{O}(1)$ priority updates. |
+| **Historical Telemetry Indexing** | `framework/data_structures/red_black_tree.py`<br>`framework/data_structures/b_tree.py` | **Self-Balancing BST / Multi-Way Search Trees** (e.g. Tree Map Range Lookups) | $\mathcal{O}(\log N + k)$ range queries | $\mathcal{O}(N)$ | Strict black-height invariants and proactive multi-way node splitting ensure logarithmic search bounds without degeneration. |
+
+---
+
+## 4. Modular Architecture
 
 ```
 DAA/
 ├── main.py                             # Unified CLI entry point & demonstration runner
 ├── requirements.txt                    # Optional dependencies (matplotlib, numpy)
 ├── README.md                           # Comprehensive documentation & DAA analysis
+│
+├── leetcode/                           # Dedicated LeetCode algorithmic problem solvers
+│   ├── __init__.py                     # LeetCode package interface
+│   ├── knapsack_solver.py              # 0/1 Knapsack DP (LC 416, 474) & Fractional Knapsack
+│   ├── matrix_chain.py                 # MCM Interval DP (LC 312 Burst Balloons) with op counter
+│   └── priority_queues.py              # IndexedMinHeap (LC 23 Merge k Lists) & Heap Wrappers
 │
 ├── framework/
 │   ├── config.py                       # Physical thermal constants (C_th, R_th, TDP, DVFS)
@@ -153,13 +173,14 @@ DAA/
     ├── test_matrix_chain.py            # Tests for MCM DP, CLRS 6-matrix, parenthesization string
     ├── test_heaps.py                   # Tests for Binomial & Fibonacci Heaps, decrease-key, cascading cuts
     ├── test_indexing.py                # Tests for Red-Black Tree 5 invariants & B-Tree range search
+    ├── test_leetcode.py                # Tests for LeetCode solvers (LC 416, LC 312, LC 23, heaps)
     ├── test_simulation.py              # End-to-end integration test
     └── run_tests.py                    # Standalone test runner script
 ```
 
 ---
 
-## 4. Installation & Quick Start
+## 5. Installation & Quick Start
 
 ### Prerequisites
 - Python 3.8+ (Zero required external dependencies for core simulation and test suites).
@@ -175,7 +196,7 @@ pip install -r requirements.txt
 
 ---
 
-## 5. Running the Framework (CLI Commands)
+## 6. Running the Framework (CLI Commands)
 
 The framework includes an interactive, formatted command-line interface via `main.py`:
 
@@ -257,7 +278,7 @@ Generated figures:
 - `benchmark_plots/telemetry_indexing_range_query.png`
 
 ### 4. Execute the Test Suite (`--test`)
-Runs all 36 unit and integration test cases:
+Runs all 43 unit and integration test cases:
 ```bash
 python3 main.py --test
 # Or directly via unittest:
@@ -271,7 +292,7 @@ python3 main.py --all
 
 ---
 
-## 6. Empirical Complexity Findings & DAA Analysis
+## 7. Empirical Complexity Findings & DAA Analysis
 
 ### Experiment 1: Pseudo-Polynomial Complexity in $0/1$ Knapsack
 Evaluating runtime scaling when expanding capacity $W$ vs scaling task count $n$:
@@ -329,9 +350,9 @@ Querying 50 random intervals $[t_1, t_2]$ over historical telemetry logs:
 
 ---
 
-## 7. Comprehensive Test Suite
+## 8. Comprehensive Test Suite
 
-All 36 unit and integration tests validate the mathematical correctness, invariants, and edge cases:
+All 43 unit and integration tests validate the mathematical correctness, invariants, and edge cases:
 
 | Test Module | Coverage & Test Cases | Status |
 | :--- | :--- | :---: |
@@ -339,10 +360,11 @@ All 36 unit and integration tests validate the mathematical correctness, invaria
 | `test_matrix_chain.py`| Base cases (1 & 2 matrices), classic CLRS 6-matrix benchmark, brute force cost match, thermal energy calculation, invalid dimension exceptions | **7 / 7 PASS** |
 | `test_heaps.py` | Binomial & Fibonacci sorted order, decrease-key, cascading cuts, union of disjoint heaps, arbitrary deletion, empty exceptions, 300-op stress test | **9 / 9 PASS** |
 | `test_indexing.py` | 150 random keys 5 RB invariants validation, degenerate sorted insertion balance, leaf/1-child/2-child/root deletions, B-Tree splits, range search slices | **7 / 7 PASS** |
+| `test_leetcode.py` | 0/1 Knapsack (LC 416 Subset Sum), Fractional Knapsack, Matrix Chain Multiplication (LC 312 Burst Balloons), IndexedMinHeap (LC 23 Merge k Lists) | **7 / 7 PASS** |
 | `test_simulation.py` | End-to-end multi-core simulation integration test verifying all 5 phases | **1 / 1 PASS** |
 
 ---
 
-## 8. Authors & Academic Integrity
+## 9. Authors & Academic Integrity
 
 Developed for **Assignment 2: Thermal-Aware CPU Workload Optimization Framework** in the **Design and Analysis of Algorithms (DAA)** course. All algorithms, data structures, and analysis routines are implemented from first principles in accordance with academic standards.

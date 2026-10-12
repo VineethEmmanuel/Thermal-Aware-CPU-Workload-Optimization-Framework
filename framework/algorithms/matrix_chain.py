@@ -21,8 +21,9 @@ Split Table s[i, j]:
 --------------------
 Stores index k where optimal parenthesization splits A_i ... A_j.
 
-Theoretical Complexity:
------------------------
+Theoretical Complexity & LeetCode Pattern Mapping:
+--------------------------------------------------
+- LeetCode Pattern: Interval DP / Range DP (e.g., LeetCode 312: Burst Balloons, LeetCode 1000: Minimum Cost to Merge Stones)
 - DP Tabulation: Time O(n^3), Space O(n^2)
 - Brute Force / Exhaustive Search: Catalan number C_{n-1} = Omega(4^n / n^{3/2})
 - Memoized Top-Down DP: Time O(n^3), Space O(n^2)

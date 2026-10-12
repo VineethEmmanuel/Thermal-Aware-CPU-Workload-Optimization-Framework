@@ -5,8 +5,9 @@ A Binomial Heap is a collection of Binomial Trees satisfying:
 1. Each binomial tree obeys the min-heap property (key(parent) <= key(child)).
 2. For any non-negative integer k, there is at most one binomial tree of degree k.
 
-Asymptotic Complexity:
------------------------
+Asymptotic Complexity & LeetCode Pattern Mapping:
+--------------------------------------------------
+- LeetCode Pattern: Priority Queue / Heap Operations (e.g., LeetCode 23: Merge k Sorted Lists, LeetCode 218: Skyline)
 - Find-Min:      O(log n) [or O(1) with cached min pointer]
 - Insert:        O(log n) worst-case, O(1) amortized
 - Extract-Min:   O(log n)

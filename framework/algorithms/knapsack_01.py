@@ -10,8 +10,9 @@ budget W >= 0 within a scheduling window:
     Subject to: sum_{i=1}^n w_i * x_i <= W
                 x_i in {0, 1} for all i in {1, ..., n}
 
-Theoretical Complexity:
------------------------
+Theoretical Complexity & LeetCode Pattern Mapping:
+--------------------------------------------------
+- LeetCode Pattern: 0/1 Knapsack / Bounded Subset Sum (e.g., LeetCode 416, 474, 494)
 - Dynamic Programming Tabulation: Time O(n * W), Space O(n * W)
 - Space-Optimized DP: Time O(n * W), Space O(W)
 - Memoized Top-Down DP: Time O(n * W), Space O(n * W) recursion/memo overhead

@@ -9,8 +9,9 @@ v_i >= 0, thermal/compute cost w_i > 0, and can be allocated fractionally:
     Subject to: sum_{i=1}^n w_i * x_i <= W
                 0 <= x_i <= 1 for all i in {1, ..., n}
 
-Theoretical Complexity:
------------------------
+Theoretical Complexity & LeetCode Pattern Mapping:
+--------------------------------------------------
+- LeetCode Pattern: Greedy Allocation / Ratio Sorting (e.g., LeetCode 134, 1710, Continuous Relaxation)
 - Standard Greedy (Sorting by v_i / w_i): Time O(n log n), Space O(n)
 - Linear-Time Greedy (Median-of-Medians / QuickSelect): Time O(n), Space O(n)
 - DAA Contrast with 0/1 Knapsack:
